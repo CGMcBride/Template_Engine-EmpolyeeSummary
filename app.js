@@ -14,6 +14,66 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+const managerBio = [
+    {
+        type: "input",
+        name: "manager-name",
+        message: "What is your manger name?",
+    }, {
+        type: "input",
+        name: "manager-id",
+        message: "What is your manager id number?"
+    }, {
+        type: "input",
+        name: "manager-email",
+        message: "What is your manager email?"
+    }, {
+        type: "input",
+        name: "office-number",
+        message: "What is your manager office number?"
+    }
+];
+
+const engineerBio = [
+    {
+        type: "input",
+        name: "engineer-name",
+        message: "What is your engineer name?",
+    }, {
+        type: "input",
+        name: "engineer-id",
+        message: "What is your engineer id number?"
+    }, {
+        type: "input",
+        name: "engineer-email",
+        message: "What is your engineer email?"
+    }, {
+        type: "input",
+        name: "github-name",
+        message: "What is your engineer GitHub username?"
+    }
+]
+
+const internBio = [
+    {
+        type: "input",
+        name: "intern-name",
+        message: "What is your intern name?",
+    }, {
+        type: "input",
+        name: "intern-id",
+        message: "What is your intern id number?"
+    }, {
+        type: "input",
+        name: "intern-email",
+        message: "What is your intern email?"
+    }, {
+        type: "input",
+        name: "school-name",
+        message: "What school does your intern attend?"
+    }
+]
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
