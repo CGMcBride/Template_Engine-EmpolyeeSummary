@@ -9,7 +9,9 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { prompt } = require("inquirer");
 
+let employeeInfo = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -17,19 +19,19 @@ const render = require("./lib/htmlRenderer");
 const managerBio = [
     {
         type: "input",
-        name: "manager-name",
+        name: "managername",
         message: "What is your manger name?",
     }, {
         type: "input",
-        name: "manager-id",
+        name: "managerid",
         message: "What is your manager id number?"
     }, {
         type: "input",
-        name: "manager-email",
+        name: "manageremail",
         message: "What is your manager email?"
     }, {
         type: "input",
-        name: "office-number",
+        name: "officenumber",
         message: "What is your manager office number?"
     }
 ];
@@ -37,19 +39,19 @@ const managerBio = [
 const engineerBio = [
     {
         type: "input",
-        name: "engineer-name",
+        name: "engineername",
         message: "What is your engineer name?",
     }, {
         type: "input",
-        name: "engineer-id",
+        name: "engineerid",
         message: "What is your engineer id number?"
     }, {
         type: "input",
-        name: "engineer-email",
+        name: "engineeremail",
         message: "What is your engineer email?"
     }, {
         type: "input",
-        name: "github-name",
+        name: "githubname",
         message: "What is your engineer GitHub username?"
     }
 ]
@@ -57,22 +59,68 @@ const engineerBio = [
 const internBio = [
     {
         type: "input",
-        name: "intern-name",
+        name: "internname",
         message: "What is your intern name?",
     }, {
         type: "input",
-        name: "intern-id",
+        name: "internid",
         message: "What is your intern id number?"
     }, {
         type: "input",
-        name: "intern-email",
+        name: "internemail",
         message: "What is your intern email?"
     }, {
         type: "input",
-        name: "school-name",
+        name: "schoolname",
         message: "What school does your intern attend?"
     }
 ]
+
+const list = [{
+    type: "list",
+    name: "EmployeeType",
+    choices: [
+        "Manager",
+        "Engineer",
+        "Intern",
+        "We are done"
+    ],
+    message: "Please select your new hire."
+}]
+
+const promptSelection = () => {
+    inquirer.prompt(list).then(answer => {
+        switch (answer.EmployeeType) {
+            case "Manager": promptManager(); break;
+            case "Engineer": promptEngineer(); break;
+            case "Intern": promptIntern(); break;
+            default: generateHtml();
+        }
+    })
+}
+
+const promptManager = () => {
+    inquirer.prompt(managerBio).then(answer => {
+        employeeInfo.push(new Manager(answer.managername, answer.managerid, answer.manageremail, answer.officenumber));
+        promptSelection();
+    })
+}
+
+const promptEngineer = () => {
+    inquirer.prompt(engineerBio).then(answer => {
+        employeeInfo.push(new Engineer(answer.engineername, answer.engineerid, answer.engineeremail, answer.githubname));
+        promptSelection();
+    })
+}
+
+const promptIntern = () => {
+    inquirer.prompt(internBio).then(answer => {
+        employeeInfo.push(new Intern(answer.internname, answer.internid, answer.internemail, answer.schoolname));
+        promptSelection();
+    })
+}
+
+promptSelection()
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
