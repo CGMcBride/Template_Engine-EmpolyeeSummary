@@ -124,9 +124,10 @@ const generateHtml = () => {
     fs.writeFile("team.html", render(employeeInfo), (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
-    });
+    })
+}
 
-    promptSelection()
+promptSelection();
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
